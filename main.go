@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/russross/blackfriday.v2"
 	"html/template"
@@ -26,6 +27,9 @@ func initServer() *gin.Engine {
 
 	// load html template files
 	server.LoadHTMLGlob(templatePath + "*.html")
+
+	// use css file
+	server.Use(static.Serve("/css", static.LocalFile(templatePath + "/css", true)))
 
 	return server
 }
