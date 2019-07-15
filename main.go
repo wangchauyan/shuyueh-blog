@@ -11,6 +11,9 @@ import (
 	"os"
 )
 
+const markdownPath =  "./markdowns/"
+const templatePath =  "./templates/"
+
 type Post struct {
 	Title   string
 	Content template.HTML
@@ -22,7 +25,7 @@ func initServer() *gin.Engine {
 	server.Delims("{{", "}}")
 
 	// load html template
-	server.LoadHTMLGlob("./templates/*.tmpl.html")
+	server.LoadHTMLGlob(templatePath + "*.tmpl.html")
 
 	return server
 }
@@ -32,7 +35,7 @@ func setupRootAPI(server *gin.Engine) {
 	server.GET("/", func(c *gin.Context) {
 		var posts []string
 
-		files, err := ioutil.ReadDir("./markdown/")
+		files, err := ioutil.ReadDir(markdownPath)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -52,7 +55,7 @@ func setupPostAPI(server *gin.Engine) {
 	server.GET("/:postName", func(c *gin.Context) {
 		postName := c.Param("postName")
 
-		mdfile, err := ioutil.ReadFile("./markdown/" + postName)
+		mdfile, err := ioutil.ReadFile(markdownPath + postName)
 
 		if err != nil {
 			fmt.Println(err)
