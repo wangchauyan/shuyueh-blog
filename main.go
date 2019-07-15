@@ -88,5 +88,11 @@ func main()  {
 	// handle the post access
 	setupPostAPI(server)
 
-	server.Run(":" + os.Args[1])
+	var portNumber string
+	if len(os.Args) == 1 {
+		portNumber = "8000"
+	} else {
+		portNumber = os.Args[1]
+	}
+ 	server.Run(":" + portNumber)
 }
