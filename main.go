@@ -24,8 +24,8 @@ func initServer() *gin.Engine {
 	server.Use(gin.Logger())
 	server.Delims("{{", "}}")
 
-	// load html template
-	server.LoadHTMLGlob(templatePath + "*.tmpl.html")
+	// load html template files
+	server.LoadHTMLGlob(templatePath + "*.html")
 
 	return server
 }
@@ -45,7 +45,7 @@ func setupRootAPI(server *gin.Engine) {
 			posts = append(posts, file.Name())
 		}
 
-		c.HTML(http.StatusOK, "index.tmpl.html", gin.H{
+		c.HTML(http.StatusOK, "index.html", gin.H{
 			"posts": posts,
 		})
 	})
@@ -60,7 +60,7 @@ func setupPostAPI(server *gin.Engine) {
 		if err != nil {
 			fmt.Println(err)
 			// handle the error page access
-			c.HTML(http.StatusNotFound, "error.tmpl.html", nil)
+			c.HTML(http.StatusNotFound, "error.html", nil)
 			c.Abort()
 			return
 		}
@@ -69,7 +69,7 @@ func setupPostAPI(server *gin.Engine) {
 
 		post := Post{Title: postName, Content: postHTML}
 
-		c.HTML(http.StatusOK, "post.tmpl.html", gin.H{
+		c.HTML(http.StatusOK, "post.html", gin.H{
 			"Title":   post.Title,
 			"Content": post.Content,
 		})
