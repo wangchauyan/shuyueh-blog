@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chauyan's Murmur</title>
+</head>
+<body>
+  <div class="container">
+    <ul>
+      {{ range .posts }}
+        <li>
+          <a href="/{{ . }}">{{ . }}</a>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+</body>
+</html>
+
